@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Rescue</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="branding">
+          <div class="logo-circle">FR</div>
+          <div>
+            <h1>Food Rescue</h1>
+            <p>Saving surplus food. Serving local communities.</p>
+          </div>
+        </div>
+        <div class="header-meta">
+          <span class="badge badge-success">Food Charity Network</span>
+          <span class="badge badge-neutral" id="user-indicator">Guest</span>
+        </div>
+      </header>
+
+      <main>
+        <!-- HOME / INFO VIEW -->
+        <section id="view-home" class="view view--active">
+          <div class="home-layout">
+            <div class="home-hero card">
+              <p class="home-kicker">ABOUT FOOD RESCUE</p>
+              <h2>Turn surplus food into shared meals, not waste.</h2>
+              <p class="home-copy">
+                Food Rescue connects supermarkets, restaurants, farms, and local charities so that
+                perfectly good food reaches families instead of landfills. Donors list surplus food,
+                charities reserve what they need, and together they coordinate pick‑ups in minutes.
+              </p>
+              <ul class="home-points">
+                <li><span>Donors</span> create time‑sensitive listings of surplus food.</li>
+                <li><span>Charities</span> discover and reserve donations that match their needs.</li>
+                <li><span>Real‑time chat</span> keeps donors and charities aligned on every booking.</li>
+              </ul>
+              <div class="home-cta-row">
+                <button id="btn-open-login" class="btn btn-primary">Login to Continue</button>
+                <button id="btn-skip-login" class="btn btn-ghost btn-small">
+                  Browse as guest (view only)
+                </button>
+              </div>
+            </div>
+
+            <div class="home-side">
+              <div class="card home-stat-card">
+                <p class="small-label">TODAY'S SNAPSHOT</p>
+                <p class="home-stat" id="home-stat-line">0 meals waiting to be rescued.</p>
+                <p class="home-copy-small">
+                  Every listing you create or claim helps charities serve fresh, safe food to people
+                  nearby.
+                </p>
+              </div>
+              <div class="card home-login-card" id="login-panel">
+                <h3>Sign in to Food Rescue</h3>
+                <form id="login-form">
+                  <div class="field">
+                    <label for="loginName">Your name</label>
+                    <input
+                      id="loginName"
+                      type="text"
+                      required
+                      placeholder="e.g. Priya from Green Valley Farm"
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="loginEmail">Email (optional)</label>
+                    <input
+                      id="loginEmail"
+                      type="email"
+                      placeholder="We keep this only in your browser"
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="loginPassword">PIN / Password (local only)</label>
+                    <input
+                      id="loginPassword"
+                      type="password"
+                      minlength="4"
+                      required
+                      placeholder="Min. 4 characters"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-secondary btn-full">
+                    Continue &amp; choose role
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ROLE SELECTION VIEW -->
+        <section id="view-role" class="view">
+          <div class="panel">
+            <h2>Choose how you’ll use Food Rescue</h2>
+            <p class="panel-subtitle">
+              Select a role for this session. You can create a separate login later for other roles.
+            </p>
+            <form id="role-form" class="card form-card">
+              <div class="role-options">
+                <label class="role-card">
+                  <input type="radio" name="role" value="DONOR" required />
+                  <div>
+                    <h3>Donor</h3>
+                    <p>Supermarkets, restaurants, farms, and bakeries with surplus food.</p>
+                  </div>
+                </label>
+                <label class="role-card">
+                  <input type="radio" name="role" value="CHARITY" required />
+                  <div>
+                    <h3>Charity</h3>
+                    <p>Food banks, shelters, and community kitchens receiving donations.</p>
+                  </div>
+                </label>
+              </div>
+              <div class="form-footer">
+                <button type="submit" class="btn btn-primary">Continue to dashboard</button>
+                <button type="button" id="btn-role-back" class="btn btn-ghost btn-small">
+                  Back
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- DONOR DASHBOARD -->
+        <section id="view-donor" class="view">
+          <div class="panel">
+            <div class="dashboard-header">
+              <div>
+                <h2>Donor dashboard</h2>
+                <p class="panel-subtitle" id="donor-welcome">
+                  Manage your surplus food listings and see their impact.
+                </p>
+              </div>
+              <div class="dashboard-actions">
+                <button id="btn-logout-1" class="btn btn-ghost btn-small">Log out</button>
+              </div>
+            </div>
+
+            <div class="dashboard-tabs">
+              <button
+                class="dashboard-tab dashboard-tab--active"
+                data-target="donor-create-panel"
+              >
+                Create listing
+              </button>
+              <button class="dashboard-tab" data-target="donor-history-panel">History</button>
+              <button class="dashboard-tab" data-target="donor-available-panel">
+                Available listings
+              </button>
+            </div>
+
+            <!-- Create listing -->
+            <div id="donor-create-panel" class="dashboard-panel dashboard-panel--active">
+              <form id="donor-create-form" class="card form-card">
+                <div class="field-grid">
+                  <div class="field">
+                    <label for="donorOrgType">Organization type</label>
+                    <select id="donorOrgType" required>
+                      <option value="">Select type</option>
+                      <option>Supermarket</option>
+                      <option>Restaurant</option>
+                      <option>Farm</option>
+                      <option>Bakery</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="donorFoodTitle">Food description</label>
+                    <input
+                      id="donorFoodTitle"
+                      type="text"
+                      required
+                      placeholder="e.g. 20kg assorted vegetables"
+                    />
+                  </div>
+                </div>
+
+                <div class="field-grid">
+                  <div class="field">
+                    <label for="donorQuantity">Approx. quantity</label>
+                    <input
+                      id="donorQuantity"
+                      type="text"
+                      required
+                      placeholder="e.g. 20 kg, 40 portions"
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="donorExpiry">Safe to use until</label>
+                    <input id="donorExpiry" type="date" required />
+                  </div>
+                </div>
+
+                <div class="field-grid">
+                  <div class="field">
+                    <label for="donorPickup">Pickup window</label>
+                    <input
+                      id="donorPickup"
+                      type="text"
+                      required
+                      placeholder="Today 16:00 – 19:00"
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="donorLocation">Pickup location</label>
+                    <input
+                      id="donorLocation"
+                      type="text"
+                      required
+                      placeholder="123 Market St, City"
+                    />
+                  </div>
+                </div>
+
+                <div class="field-grid">
+                  <div class="field">
+                    <label for="donorImage">Photo of the food (optional)</label>
+                    <input
+                      id="donorImage"
+                      type="file"
+                      accept="image/*"
+                      aria-label="Upload a photo of the donation"
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="donorNotes">Special notes (optional)</label>
+                    <textarea
+                      id="donorNotes"
+                      rows="2"
+                      placeholder="Handling instructions, storage, access notes..."
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div class="form-footer">
+                  <button type="submit" class="btn btn-primary">Create listing</button>
+                  <p class="hint">
+                    You can delete your own listing within the first 10 minutes if something
+                    changes.
+                  </p>
+                </div>
+              </form>
+            </div>
+
+            <!-- Donor history -->
+            <div id="donor-history-panel" class="dashboard-panel">
+              <div class="card">
+                <p class="small-label">Your past listings</p>
+                <div id="donor-history-container" class="listings-container"></div>
+                <div id="donor-history-empty" class="empty-state">
+                  <p>You haven’t created any listings yet.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Donor available listings (from other donors) -->
+            <div id="donor-available-panel" class="dashboard-panel">
+              <div class="card">
+                <p class="small-label">Available listings from other donors</p>
+                <p class="hint">You can view details but cannot claim from the donor dashboard.</p>
+                <div id="donor-available-container" class="listings-container"></div>
+                <div id="donor-available-empty" class="empty-state">
+                  <p>No available listings from other donors right now.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHARITY DASHBOARD -->
+        <section id="view-charity" class="view">
+          <div class="panel">
+            <div class="dashboard-header">
+              <div>
+                <h2>Charity dashboard</h2>
+                <p class="panel-subtitle" id="charity-welcome">
+                  Discover available donations and track what you have claimed.
+                </p>
+              </div>
+              <div class="dashboard-actions">
+                <button id="btn-logout-2" class="btn btn-ghost btn-small">Log out</button>
+              </div>
+            </div>
+
+            <div class="dashboard-tabs">
+              <button
+                class="dashboard-tab dashboard-tab--active"
+                data-target="charity-available-panel"
+              >
+                Available listings
+              </button>
+              <button class="dashboard-tab" data-target="charity-claimed-panel">
+                Claimed lists
+              </button>
+            </div>
+
+            <!-- Charity available listings -->
+            <div id="charity-available-panel" class="dashboard-panel dashboard-panel--active">
+              <div class="card">
+                <div class="field-grid">
+                  <div class="field">
+                    <label for="charity-search">Search</label>
+                    <input
+                      id="charity-search"
+                      type="text"
+                      placeholder="Search by food, donor, location..."
+                    />
+                  </div>
+                </div>
+                <div id="charity-available-container" class="listings-container"></div>
+                <div id="charity-available-empty" class="empty-state">
+                  <p>No available listings at the moment. New donations will appear here.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Charity claimed lists -->
+            <div id="charity-claimed-panel" class="dashboard-panel">
+              <div class="card">
+                <p class="small-label">Listings you have claimed</p>
+                <div id="charity-claimed-container" class="listings-container"></div>
+                <div id="charity-claimed-empty" class="empty-state">
+                  <p>You haven’t claimed any listings yet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <span>Food Rescue – a simple bridge between surplus food and local charities.</span>
+        <span id="stats-line"></span>
+      </footer>
+    </div>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+
+
